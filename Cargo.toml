@@ -15,7 +15,7 @@ p256 = { git = "https://github.com/helium/elliptic-curves", branch="rg/compact",
 
 [dev-dependencies]
 hex-literal = "0"
-rand = "0.8"
+rand = "0.5.1"
 sha2 = "0"
 
 [patch.crates-io]

@@ -49,22 +49,22 @@ impl IntoBytes for Keypair {
 }
 
 impl Keypair {
-    pub fn generate<R>(network: Network, csprng: &mut R) -> Keypair
-    where
-        R: rand_core::CryptoRng + rand_core::RngCore,
-    {
-        let mut inner = p256::SecretKey::random(&mut *csprng);
-        let mut public_key = inner.public_key();
-        while !bool::from(public_key.as_affine().is_compactable()) {
-            inner = p256::SecretKey::random(&mut *csprng);
-            public_key = inner.public_key();
-        }
-        Keypair {
-            network,
-            public_key: public_key::PublicKey::for_network(network, PublicKey(public_key)),
-            inner,
-        }
-    }
+    // pub fn generate<R>(network: Network, csprng: &mut R) -> Keypair
+    // where
+    //     R: rand_core::CryptoRng + rand_core::RngCore,
+    // {
+    //     let mut inner = p256::SecretKey::random(&mut *csprng);
+    //     let mut public_key = inner.public_key();
+    //     while !bool::from(public_key.as_affine().is_compactable()) {
+    //         inner = p256::SecretKey::random(&mut *csprng);
+    //         public_key = inner.public_key();
+    //     }
+    //     Keypair {
+    //         network,
+    //         public_key: public_key::PublicKey::for_network(network, PublicKey(public_key)),
+    //         inner,
+    //     }
+    // }
 
     pub fn generate_from_entropy(network: Network, entropy: &[u8]) -> error::Result<Keypair> {
         let inner = p256::SecretKey::from_bytes(entropy)?;

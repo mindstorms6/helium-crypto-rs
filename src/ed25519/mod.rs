@@ -45,18 +45,18 @@ impl IntoBytes for Keypair {
 }
 
 impl Keypair {
-    pub fn generate<R>(network: Network, csprng: &mut R) -> Keypair
-    where
-        R: rand_core::CryptoRng + rand_core::RngCore,
-    {
-        let inner = ed25519_dalek::Keypair::generate(csprng);
-        let public_key = public_key::PublicKey::for_network(network, PublicKey(inner.public));
-        Keypair {
-            network,
-            public_key,
-            inner,
-        }
-    }
+    // pub fn generate<R>(network: Network, csprng: &mut R) -> Keypair
+    // where
+    //     R: rand_core::CryptoRng + rand_core::RngCore,
+    // {
+    //     let inner = ed25519_dalek::Keypair::generate(csprng);
+    //     let public_key = public_key::PublicKey::for_network(network, PublicKey(inner.public));
+    //     Keypair {
+    //         network,
+    //         public_key,
+    //         inner,
+    //     }
+    // }
 
     pub fn generate_from_entropy(network: Network, entropy: &[u8]) -> error::Result<Keypair> {
         let inner = ed25519_dalek::Keypair::from_bytes(entropy)?;
